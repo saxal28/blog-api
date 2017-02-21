@@ -57,6 +57,16 @@ app.get("/blogs", (req, res) => {
 });
 
 //gets blog by id
+app.get("/blogs/:id", (req, res) => {
+    Blog.findById(req.params.id).then(blog => {
+        if(!blog) {
+            res.status(404).send({err: "Not Found!"})
+        }
+        res.send({blog});
+    }).catch(err => {
+        res.status(400).send({err});
+    })
+})
 
 //adds new blog
 app.post("/blogs", (req, res) => {
